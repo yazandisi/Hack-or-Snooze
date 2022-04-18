@@ -23,6 +23,10 @@ const $formAuthor = $(".formInput").eq(0);
 const $formTitle = $(".formInput").eq(1);
 const $formUrl = $(".formInput").eq(2);
 
+const $favorites = $(".favorites");
+
+const $navFavorite = $("#navFavorite");
+
 let recallBoxChecked = [];
 
 /** To make it easier for individual components to show just themselves, this

@@ -22,7 +22,6 @@ async function login(evt) {
   currentUser = await User.login(username, password);
 
   $loginForm.trigger("reset");
-
   saveUserCredentialsInLocalStorage();
   updateUIOnUserLogin();
 }
@@ -60,6 +59,7 @@ function logout(evt) {
   console.debug("logout", evt);
   localStorage.clear();
   location.reload();
+  $allStoriesList.hide();
 }
 
 $navLogOut.on("click", logout);
@@ -72,10 +72,12 @@ $navLogOut.on("click", logout);
  * that user. This is meant to be called on page load, just once.
  */
 
+// hide submit button here
 async function checkForRememberedUser() {
   console.debug("checkForRememberedUser");
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username");
+  $("#navSubmit").hide();
   if (!token || !username) return false;
 
   // try to log in with these credentials (will be null if login failed)
@@ -107,11 +109,12 @@ function saveUserCredentialsInLocalStorage() {
  * - generate the user profile part of the page
  */
 
+//Show submit here for logged in user
+
 function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
-
+  $("#navSubmit").show();
   $allStoriesList.show();
-
   updateNavOnLogin();
 }
 
@@ -126,9 +129,7 @@ async function addFavorite(e) {
       method: "POST",
       data: { token: currentUser.loginToken },
     });
-
     recallBoxChecked.push(grabId);
-    console.log(recallBoxChecked);
   } else {
     await axios({
       url: `https://hack-or-snooze-v3.herokuapp.com/users/${user}/favorites/${grabId}`,

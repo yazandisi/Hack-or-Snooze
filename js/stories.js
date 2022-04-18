@@ -56,6 +56,12 @@ function putStoriesOnPage() {
     gettingBoxVal = gettingBoxVal[0];
     $(gettingBoxVal).attr("checked", true);
   }
+  for (let id of currentUser.favorites) {
+    const gettingBoxVal = $(`#${id.storyId}`);
+    const seperateList = gettingBoxVal.clone();
+    $(".forFavorites").append(seperateList);
+    console.log(gettingBoxVal);
+  }
 }
 
 async function addWhenSubmit(e) {
