@@ -2,6 +2,7 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
+let count = 0;
 
 /** Get and show stories when site first loads. */
 
@@ -56,12 +57,16 @@ function putStoriesOnPage() {
     gettingBoxVal = gettingBoxVal[0];
     $(gettingBoxVal).attr("checked", true);
   }
-  for (let id of currentUser.favorites) {
-    const gettingBoxVal = $(`#${id.storyId}`);
-    const seperateList = gettingBoxVal.clone();
-    $(".forFavorites").append(seperateList);
-    console.log(gettingBoxVal);
+
+  if (count === 0) {
+    for (let id of currentUser.favorites) {
+      const gettingBoxVal = $(`#${id.storyId}`);
+      const seperateList = gettingBoxVal.clone();
+      $(".forFavorites").append(seperateList);
+      console.log(gettingBoxVal);
+    }
   }
+  count++;
 }
 
 async function addWhenSubmit(e) {
