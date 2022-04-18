@@ -57,6 +57,8 @@ class StoryList {
       method: "GET",
     });
 
+    // https://hack-or-snooze-v3.herokuapp.com/stories/storyId
+
     // turn plain old story objects from API into instances of Story class
     const stories = response.data.stories.map((story) => new Story(story));
 

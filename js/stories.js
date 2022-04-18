@@ -49,6 +49,13 @@ function putStoriesOnPage() {
   }
 
   $allStoriesList.show();
+
+  //loop through favorites and grab the ids, then use ids to grab the checkboxes and set them to checked.
+  for (let id of currentUser.favorites) {
+    let gettingBoxVal = $(`#${id.storyId}`).children();
+    gettingBoxVal = gettingBoxVal[0];
+    $(gettingBoxVal).attr("checked", true);
+  }
 }
 
 async function addWhenSubmit(e) {

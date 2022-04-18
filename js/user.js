@@ -119,8 +119,6 @@ async function addFavorite(e) {
   let user = currentUser.username;
   let box = e.target;
   let grabId = $(box).closest("li")[0].id;
-  // let $gettingCheckBoxLi = $(".checkBox").parent();
-  // console.log($(".checkBox")[0]);
 
   if (e.target.checked) {
     await axios({
@@ -139,17 +137,5 @@ async function addFavorite(e) {
     });
   }
 }
-
-// await axios({
-//   url: "https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId",
-//   method: "POST",
-//   data: { token: currentUser.loginToken },
-// });
-
-// $(".checkBox").on("click", (e) => {
-//   console.log(e);
-// });
-
-// $(".checkBox")[0].on("click", console.log("asd"));
 
 $("body").on("click", ".checkBox", addFavorite);
