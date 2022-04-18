@@ -88,7 +88,7 @@ class StoryList {
         },
       },
     });
-    const story = new Story(RESPONSE.data.story);
+    let story = new Story(RESPONSE.data.story);
     this.stories.unshift(story);
     return story;
   }

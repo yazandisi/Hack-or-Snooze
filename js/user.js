@@ -121,16 +121,26 @@ function updateUIOnUserLogin() {
 async function addFavorite(e) {
   let user = currentUser.username;
   let box = e.target;
+  $(box).attr("checked", true);
   let grabId = $(box).closest("li")[0].id;
 
   if (e.target.checked) {
+    $(box).attr("checked", true);
+    arr1.push(grabId);
     await axios({
       url: `https://hack-or-snooze-v3.herokuapp.com/users/${user}/favorites/${grabId}`,
       method: "POST",
       data: { token: currentUser.loginToken },
     });
-    recallBoxChecked.push(grabId);
+    let addTofavsAuto1 = $(box).closest("li");
+    let addTofavsAuto2 = addTofavsAuto1.clone();
+    $(".forFavorites").append(addTofavsAuto2);
   } else {
+    let $auotRemoveBox = $(".forFavorites").children(`#${grabId}`);
+    $auotRemoveBox.remove();
+    const myIndex = arr1.indexOf(grabId);
+    myIndex > -1 ? arr1.splice(myIndex, 1) : false;
+
     await axios({
       url: `https://hack-or-snooze-v3.herokuapp.com/users/${user}/favorites/${grabId}`,
       method: "DELETE",
@@ -140,3 +150,25 @@ async function addFavorite(e) {
 }
 
 $("body").on("click", ".checkBox", addFavorite);
+
+async function remvoeStory(e) {
+  let btn = e.target;
+  let closestStory = btn.closest("li");
+  let asd = e.target.parentElement;
+  let sfd = asd.parentElement;
+  sfd.remove();
+  console.log(sfd);
+
+  closestStory = closestStory.id;
+  e.target.parentElement;
+  if (e.target) {
+    await axios({
+      url: `https://hack-or-snooze-v3.herokuapp.com/stories/${closestStory}`,
+      method: "DELETE",
+      data: { token: currentUser.loginToken },
+    });
+  }
+  // $("userBtn").closest("li").remove();
+}
+
+$("body").on("click", ".userBtn", remvoeStory);

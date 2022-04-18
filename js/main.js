@@ -26,6 +26,8 @@ const $formUrl = $(".formInput").eq(2);
 const $favorites = $(".favorites");
 
 const $navFavorite = $("#navFavorite");
+let favControl = true;
+let arr1 = [];
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After

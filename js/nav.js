@@ -12,6 +12,7 @@ function navHome() {
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
   hidePageComponents();
+
   putStoriesOnPage();
   $submitForm.hide();
 }
@@ -54,6 +55,12 @@ function clickOnFavorites(evt) {
   $allStoriesList.hide();
   $submitForm.hide();
   $favorites.show();
+  let temp = $(".forFavorites").children();
+
+  if (temp.length === 0 && favControl === true) {
+    $(".favorites").append($("<h1>Add favorites to save here</h1>"));
+  }
+  favControl = false;
 }
 
 $navFavorite.on("click", clickOnFavorites);

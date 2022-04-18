@@ -41,9 +41,14 @@ function generateStoryMarkup(story) {
 function putStoriesOnPage() {
   console.debug("putStoriesOnPage");
 
+  // console.log(currentUser.username);
+
+  // const yea = document.getElementsByClassName("story-user");
+
   $allStoriesList.empty();
 
   // loop through all of our stories and generate HTML for them
+
   for (let story of storyList.stories) {
     const $story = generateStoryMarkup(story);
     $allStoriesList.append($story);
@@ -63,10 +68,27 @@ function putStoriesOnPage() {
       const gettingBoxVal = $(`#${id.storyId}`);
       const seperateList = gettingBoxVal.clone();
       $(".forFavorites").append(seperateList);
-      console.log(gettingBoxVal);
     }
   }
   count++;
+  $favorites.hide();
+
+  for (let id of arr1) {
+    if (document.getElementById(id)) {
+      // $(`#all-stories-list > #${id}`).closest("checkbox").attr("checked", true);
+
+      let autoChecked = document.getElementById(id).children[0];
+
+      autoChecked.setAttribute("checked", true);
+      console.log(id);
+      console.log(arr1);
+    }
+  }
+  $("small:contains('fake')").append(
+    "<button class='userBtn'>Remove User Story</button>"
+  );
+
+  console.log($("small:contains('fake')"));
 }
 
 async function addWhenSubmit(e) {
@@ -79,6 +101,7 @@ async function addWhenSubmit(e) {
 
   await storyList.addStory(currentUser, obj);
   putStoriesOnPage();
+
   $formAuthor.val("");
   $formTitle.val("");
   $formUrl.val("");
