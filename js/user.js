@@ -130,7 +130,9 @@ async function addFavorite(e) {
     await axios({
       url: `https://hack-or-snooze-v3.herokuapp.com/users/${user}/favorites/${grabId}`,
       method: "POST",
-      data: { token: currentUser.loginToken },
+      data: {
+        token: currentUser.loginToken,
+      },
     });
     let addTofavsAuto1 = $(box).closest("li");
     let addTofavsAuto2 = addTofavsAuto1.clone();
@@ -144,7 +146,9 @@ async function addFavorite(e) {
     await axios({
       url: `https://hack-or-snooze-v3.herokuapp.com/users/${user}/favorites/${grabId}`,
       method: "DELETE",
-      data: { token: currentUser.loginToken },
+      data: {
+        token: currentUser.loginToken,
+      },
     });
   }
 }
@@ -153,18 +157,46 @@ $("body").on("click", ".checkBox", addFavorite);
 
 async function remvoeStory(e) {
   let btn = e.target;
-  let closestStory = btn.closest("li");
-  let parent = e.target.parentElement;
-  let getParent = parent.parentElement;
-  getParent.remove();
-  closestStory = closestStory.id;
-  e.target.parentElement;
-  if (e.target) {
-    await axios({
-      url: `https://hack-or-snooze-v3.herokuapp.com/stories/${closestStory}`,
-      method: "DELETE",
-      data: { token: currentUser.loginToken },
-    });
+  let forTheFav = $(btn).parents();
+  forTheFav = forTheFav[2];
+
+  console.log($(forTheFav).hasClass("stories-list"));
+
+  if ($(forTheFav).hasClass("stories-list")) {
+    let closestStory = btn.closest("li");
+    let parent = e.target.parentElement;
+    let getParent = parent.parentElement;
+    getParent.remove();
+
+    closestStory = closestStory.id;
+
+    if (e.target) {
+      await axios({
+        url: `https://hack-or-snooze-v3.herokuapp.com/stories/${closestStory}`,
+        method: "DELETE",
+        data: {
+          token: currentUser.loginToken,
+        },
+      });
+    }
+    location.reload();
+  } else if ($(forTheFav).hasClass("forFavorites")) {
+    let closestStory = btn.closest("li");
+    let parent = e.target.parentElement;
+    let getParent = parent.parentElement;
+    getParent.remove();
+
+    closestStory = closestStory.id;
+    if (e.target) {
+      await axios({
+        url: `https://hack-or-snooze-v3.herokuapp.com/stories/${closestStory}`,
+        method: "DELETE",
+        data: {
+          token: currentUser.loginToken,
+        },
+      });
+    }
+    location.reload();
   }
 }
 
