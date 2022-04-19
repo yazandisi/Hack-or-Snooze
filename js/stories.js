@@ -36,6 +36,24 @@ function generateStoryMarkup(story) {
     `);
 }
 
+function putUserStoriesOnPage() {
+  console.debug("putUserStoriesOnPage");
+
+  $ownStories.empty();
+
+  if (currentUser.ownStories.length === 0) {
+    $ownStories.append("<h5>No stories added by user yet!</h5>");
+  } else {
+    // loop through all of users stories and generate HTML for them
+    for (let story of currentUser.ownStories) {
+      let $story = generateStoryMarkup(story, true);
+      $ownStories.append($story);
+    }
+  }
+
+  $ownStories.show();
+}
+
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
@@ -77,13 +95,13 @@ function putStoriesOnPage() {
     }
   }
 
-  let liGrab = document.getElementsByClassName("story-user");
-  console.log(liGrab);
-  for (let classElem of liGrab) {
-    if (classElem.innerHTML === `posted by ${currentUser.username}`) {
-      $(classElem).append("<button class='userBtn'>Remove User Story</button>");
-    }
-  }
+  // let liGrab = document.getElementsByClassName("story-user");
+  // console.log(liGrab);
+  // for (let classElem of liGrab) {
+  //   if (classElem.innerHTML === `posted by ${currentUser.username}`) {
+  //     $(classElem).append("<button class='userBtn'>Remove User Story</button>");
+  //   }
+  // }
 }
 
 async function addWhenSubmit(e) {
@@ -96,9 +114,28 @@ async function addWhenSubmit(e) {
 
   await storyList.addStory(currentUser, obj);
   putStoriesOnPage();
+  putUserStoriesOnPage();
 
   $formAuthor.val("");
   $formTitle.val("");
   $formUrl.val("");
 }
 $enterStory.on("click", addWhenSubmit);
+
+function putUserStoriesOnPage() {
+  console.debug("putUserStoriesOnPage");
+
+  $navStoryOl.empty();
+
+  if (currentUser.ownStories.length === 0) {
+    $navStoryOl.append("<h5>No stories added by user yet!</h5>");
+  } else {
+    // loop through all of users stories and generate HTML for them
+    for (let story of currentUser.ownStories) {
+      let $story = generateStoryMarkup(story, true);
+      $navStoryOl.append($story);
+    }
+  }
+
+  $navStoryOl.show();
+}

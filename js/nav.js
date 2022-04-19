@@ -5,39 +5,67 @@
  */
 
 /** Show main list of all stories when click site name */
-function navHome() {
-  $submitForm.hide();
-}
 
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
   hidePageComponents();
-
   putStoriesOnPage();
-  $submitForm.hide();
 }
 
 $body.on("click", "#nav-all", navAllStories);
 
-/** Show login/signup on click on "login" */
+/** Show story submit form on clicking story "submit" */
+
 function navSubmitStoryClick(evt) {
   console.debug("navSubmitStoryClick", evt);
   hidePageComponents();
   $allStoriesList.show();
   $submitForm.show();
-  $favorites.hide();
 }
-$navSubmit.on("click", navSubmitStoryClick);
+
+$navSubmitStory.on("click", navSubmitStoryClick);
+
+/** Show favorite stories on click on "favorites" */
+
+function navFavoritesClick(evt) {
+  console.debug("navFavoritesClick", evt);
+  hidePageComponents();
+  putFavoritesListOnPage();
+}
+
+$body.on("click", "#nav-favorites", navFavoritesClick);
+
+/** Show My Stories on clicking "my stories" */
+
+function navMyStories(evt) {
+  console.debug("navMyStories", evt);
+  hidePageComponents();
+  putUserStoriesOnPage();
+  $ownStories.show();
+}
+
+$body.on("click", "#nav-my-stories", navMyStories);
+
+/** Show login/signup on click on "login" */
 
 function navLoginClick(evt) {
   console.debug("navLoginClick", evt);
   hidePageComponents();
   $loginForm.show();
   $signupForm.show();
-  count++;
 }
 
 $navLogin.on("click", navLoginClick);
+
+/** Hide everything but profile on click on "profile" */
+
+function navProfileClick(evt) {
+  console.debug("navProfileClick", evt);
+  hidePageComponents();
+  $userProfile.show();
+}
+
+$navUserProfile.on("click", navProfileClick);
 
 /** When a user first logins in, update the navbar to reflect that. */
 
@@ -48,19 +76,3 @@ function updateNavOnLogin() {
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
-
-function clickOnFavorites(evt) {
-  console.debug("clickOnFavorites", evt);
-  hidePageComponents();
-  $allStoriesList.hide();
-  $submitForm.hide();
-  $favorites.show();
-  let temp = $(".forFavorites").children();
-
-  if (temp.length === 0 && favControl === true) {
-    $(".favorites").append($("<h1>Add favorites to save here</h1>"));
-  }
-  favControl = false;
-}
-
-$navFavorite.on("click", clickOnFavorites);
