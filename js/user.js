@@ -154,11 +154,9 @@ $("body").on("click", ".checkBox", addFavorite);
 async function remvoeStory(e) {
   let btn = e.target;
   let closestStory = btn.closest("li");
-  let asd = e.target.parentElement;
-  let sfd = asd.parentElement;
-  sfd.remove();
-  console.log(sfd);
-
+  let parent = e.target.parentElement;
+  let getParent = parent.parentElement;
+  getParent.remove();
   closestStory = closestStory.id;
   e.target.parentElement;
   if (e.target) {
@@ -168,7 +166,6 @@ async function remvoeStory(e) {
       data: { token: currentUser.loginToken },
     });
   }
-  // $("userBtn").closest("li").remove();
 }
 
 $("body").on("click", ".userBtn", remvoeStory);

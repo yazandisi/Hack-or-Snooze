@@ -21,7 +21,7 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  // console.debug("generateStoryMarkup", story);
+  console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
   return $(`
@@ -40,10 +40,6 @@ function generateStoryMarkup(story) {
 
 function putStoriesOnPage() {
   console.debug("putStoriesOnPage");
-
-  // console.log(currentUser.username);
-
-  // const yea = document.getElementsByClassName("story-user");
 
   $allStoriesList.empty();
 
@@ -75,20 +71,19 @@ function putStoriesOnPage() {
 
   for (let id of arr1) {
     if (document.getElementById(id)) {
-      // $(`#all-stories-list > #${id}`).closest("checkbox").attr("checked", true);
-
       let autoChecked = document.getElementById(id).children[0];
 
       autoChecked.setAttribute("checked", true);
-      console.log(id);
-      console.log(arr1);
     }
   }
-  $("small:contains('fake')").append(
-    "<button class='userBtn'>Remove User Story</button>"
-  );
 
-  console.log($("small:contains('fake')"));
+  let liGrab = document.getElementsByClassName("story-user");
+  console.log(liGrab);
+  for (let classElem of liGrab) {
+    if (classElem.innerHTML === `posted by ${currentUser.username}`) {
+      $(classElem).append("<button class='userBtn'>Remove User Story</button>");
+    }
+  }
 }
 
 async function addWhenSubmit(e) {
