@@ -40,7 +40,7 @@ $body.on("click", "#nav-favorites", navFavoritesClick);
 function navMyStories(evt) {
   console.debug("navMyStories", evt);
   hidePageComponents();
-  putUserStoriesOnPage();
+  putUserStory();
   $ownStories.show();
 }
 
